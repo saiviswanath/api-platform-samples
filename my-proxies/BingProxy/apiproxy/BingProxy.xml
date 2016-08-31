@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<APIProxy revision="8" name="BingProxy">
+    <ConfigurationVersion majorVersion="4" minorVersion="0"/>
+    <CreatedAt>1472209415371</CreatedAt>
+    <CreatedBy>saiviswanath.p@infosys.com</CreatedBy>
+    <Description>Bing Proxy</Description>
+    <DisplayName>BingProxy</DisplayName>
+    <LastModifiedAt>1472554993149</LastModifiedAt>
+    <LastModifiedBy>saiviswanath.p@infosys.com</LastModifiedBy>
+    <Policies>
+        <Policy>APIKeyValidation</Policy>
+        <Policy>AddQueryHeader</Policy>
+        <Policy>AddTestHeader</Policy>
+        <Policy>CleanupJS</Policy>
+        <Policy>EtractJson</Policy>
+        <Policy>Evs</Policy>
+        <Policy>OAuth</Policy>
+        <Policy>Quota</Policy>
+        <Policy>REProtection</Policy>
+        <Policy>SpikeArrest</Policy>
+        <Policy>TempCache</Policy>
+        <Policy>TestKVMap</Policy>
+        <Policy>TestTargetUrl</Policy>
+        <Policy>mashup1</Policy>
+        <Policy>sc-truck</Policy>
+        <Policy>targetHeader</Policy>
+        <Policy>truckextract</Policy>
+        <Policy>truckfault</Policy>
+        <Policy>truckheader</Policy>
+    </Policies>
+    <ProxyEndpoints>
+        <ProxyEndpoint>default</ProxyEndpoint>
+    </ProxyEndpoints>
+    <Resources>
+        <Resource>jsc://CleanupJS.js</Resource>
+        <Resource>jsc://TestTargetUrl.js</Resource>
+    </Resources>
+    <TargetServers/>
+    <TargetEndpoints>
+        <TargetEndpoint>default</TargetEndpoint>
+        <TargetEndpoint>ratingsEndpoint</TargetEndpoint>
+    </TargetEndpoints>
+    <validate>false</validate>
+</APIProxy>

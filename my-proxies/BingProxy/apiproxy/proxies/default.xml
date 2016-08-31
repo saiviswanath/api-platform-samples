@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ProxyEndpoint name="default">
+    <Description/>
+    <FaultRules/>
+    <PreFlow name="PreFlow">
+        <Request>
+            <Step>
+                <Name>SpikeArrest</Name>
+            </Step>
+            <Step>
+                <Name>REProtection</Name>
+            </Step>
+        </Request>
+        <Response>
+            <Step>
+                <Name>TestKVMap</Name>
+            </Step>
+        </Response>
+    </PreFlow>
+    <PostFlow name="PostFlow">
+        <Request>
+        </Request>
+        <Response>
+            <Step>
+                <Name>targetHeader</Name>
+            </Step>
+        </Response>
+    </PostFlow>
+    <Flows>
+        <Flow name="AddHeader">
+            <Description>AddHeader</Description>
+            <Request/>
+            <Response>
+                <Step>
+                    <Name>AddTestHeader</Name>
+                </Step>
+            </Response>
+            <Condition>(proxy.pathsuffix MatchesPath "/tests") and (request.verb = "GET")</Condition>
+        </Flow>
+        <Flow name="QparamAddHeader">
+            <Description>QparamAddHeader</Description>
+            <Request/>
+            <Response>
+                <Step>
+                    <Name>AddQueryHeader</Name>
+                </Step>
+            </Response>
+            <Condition>(request.queryparam.param equals "test")</Condition>
+        </Flow>
+        <Flow name="truckjson">
+            <Description>truckjson</Description>
+            <Request>
+                <Step>
+                    <Name>EtractJson</Name>
+                </Step>
+                <Step>
+                    <Name>truckfault</Name>
+                    <Condition>json.comment equals null or json.commenter equals null or json.rating equals null or json.truck equals null</Condition>
+                </Step>
+            </Request>
+            <Response>
+                <Step>
+                    <Name>truckheader</Name>
+                </Step>
+            </Response>
+            <Condition>(proxy.pathsuffix MatchesPath "/ratings") and (request.verb = "POST")</Condition>
+        </Flow>
+        <Flow name="trucksextract">
+            <Description>trucksextract</Description>
+            <Request>
+                <Step>
+                    <Name>truckextract</Name>
+                </Step>
+                <Step>
+                    <Name>sc-truck</Name>
+                </Step>
+                <Step>
+                    <Name>TempCache</Name>
+                </Step>
+            </Request>
+            <Response>
+                <Step>
+                    <Name>TempCache</Name>
+                </Step>
+                <Step>
+                    <Name>CleanupJS</Name>
+                </Step>
+                <Step>
+                    <Name>mashup1</Name>
+                </Step>
+            </Response>
+            <Condition>(proxy.pathsuffix MatchesPath "/trucks/{truck}") and (request.verb = "GET")</Condition>
+        </Flow>
+    </Flows>
+    <HTTPProxyConnection>
+        <BasePath>/bingproxy</BasePath>
+        <Properties/>
+        <VirtualHost>default</VirtualHost>
+        <VirtualHost>secure</VirtualHost>
+    </HTTPProxyConnection>
+    <RouteRule name="test">
+        <Condition>(proxy.pathsuffix MatchesPath "/tests")</Condition>
+        <TargetEndpoint>ratingsEndpoint</TargetEndpoint>
+    </RouteRule>
+    <RouteRule name="newRoute">
+        <Condition>(proxy.pathsuffix MatchesPath "/ratings")</Condition>
+        <TargetEndpoint>ratingsEndpoint</TargetEndpoint>
+    </RouteRule>
+    <RouteRule name="trucks">
+        <Condition>(proxy.pathsuffix MatchesPath "/trucks/{truck}")</Condition>
+        <TargetEndpoint>ratingsEndpoint</TargetEndpoint>
+    </RouteRule>
+    <RouteRule name="default">
+        <TargetEndpoint>default</TargetEndpoint>
+    </RouteRule>
+</ProxyEndpoint>

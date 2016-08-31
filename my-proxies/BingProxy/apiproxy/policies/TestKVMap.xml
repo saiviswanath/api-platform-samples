@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<KeyValueMapOperations async="false" continueOnError="false" enabled="true" name="TestKVMap" mapIdentifier="TestKVMap">
+    <DisplayName>TestKVMap</DisplayName>
+    <Get assignTo="test.test1" index="1">
+        <Key>
+            <Parameter>test.test1</Parameter>
+        </Key>
+    </Get>
+    <Scope>apiproxy</Scope>
+</KeyValueMapOperations>

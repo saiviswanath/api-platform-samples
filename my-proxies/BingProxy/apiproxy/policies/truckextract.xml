@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ExtractVariables async="false" continueOnError="false" enabled="true" name="truckextract">
+    <DisplayName>truckextract</DisplayName>
+    <URIPath name="trucksUri">
+        <Pattern ignoreCase="false">/trucks/{truck}</Pattern>
+    </URIPath>
+</ExtractVariables>
